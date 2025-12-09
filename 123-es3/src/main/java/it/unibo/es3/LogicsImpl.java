@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class LogicsImpl implements Logics {
     private static final int INITIAL_CELLS = 3;
-    private int width;
+    private final int width;
     private boolean[][] grid;
-    private Random rng = new Random();
+    private final Random numberGenerator = new Random();
 
     public LogicsImpl(final int width) {
         this.width = width;
@@ -25,7 +25,7 @@ public class LogicsImpl implements Logics {
 
         for (int row = 0; row < width; row++) {
             for (int col = 0; col < width; col++) {
-                next[row][col] = grid[row][col] || hasActiveNeighbor(row, col);
+                next[row][col] = grid[row][col] || hasActiveNeighbour(row, col);
             }
         }
 
@@ -36,7 +36,7 @@ public class LogicsImpl implements Logics {
     public boolean toQuit() {
         for (int row = 0; row < width; row++) {
             for (int col = 0; col < width; col++) {
-                if (!grid[row][col]) {
+                if (!isStar(row, col)) {
                     return false;
                 }
             }
@@ -45,14 +45,29 @@ public class LogicsImpl implements Logics {
     }
 
     @Override
-    public boolean isStar(int row, int col) {
+    public boolean isStar(final int row, final int col) {
         return grid[row][col];
     }
 
     @Override
-    public boolean hasActiveNeighbor(int row, int col) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'hasActiveNeighbor'");
+    public boolean hasActiveNeighbour(final int row, final int col) {
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                if (dx == 0 && dy == 0) {
+                    continue; /*Skips the cell itself */
+                }
+
+                final int nr = row + dx;
+                final int nc = col + dy;
+
+                if (nr >= 0 && nr < width && nc >= 0 && nc < width) {
+                    if (isStar(nr, nc)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -60,9 +75,9 @@ public class LogicsImpl implements Logics {
         int count = 0;
 
         while(count < n) {
-            int row = rng.nextInt(width);
-            int col = rng.nextInt(width);
-            if(!grid[row][col]) {
+            final int row = numberGenerator.nextInt(width);
+            final int col = numberGenerator.nextInt(width);
+            if(!isStar(row, col)) {
                 grid[row][col] = true;
                 count++;
             }

@@ -1,12 +1,15 @@
 package it.unibo.es3;
 
 public interface Logics {
-    int size();
+    int width();
 
-    void trigger(int row, int col);
+    void trigger();
 
     boolean toQuit();
 
-    boolean isStar();
+    boolean isStar(int row, int col);
 
+    boolean hasActiveNeighbour(int row, int col);
+
+    void activateRandomCells(int n);
 }

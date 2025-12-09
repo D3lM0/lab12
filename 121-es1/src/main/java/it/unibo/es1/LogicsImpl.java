@@ -77,7 +77,7 @@ public class LogicsImpl implements Logics {
         String result = "<<";
         for (int i = 0; i < size; i++) {
             result += this.values.get(i);
-            if (i == size - 1) {
+            if (i < size - 1) {
                 result += "|";
             }
         }

@@ -1,13 +1,15 @@
 package it.unibo.es2;
 
-
-
-public class LogicsImpl implements Logics{
-    private int size; /*Number of rows or cols */
-    private boolean[][] grid;
+/**
+ * Class implementing the Logics interface.
+ */
+public class LogicsImpl implements Logics {
+    private final int size; /*Number of rows or cols */
+    private final boolean[][] grid; /*Double matrix to save the state of each cell of the GUI */
 
     /**
      * Constructor.
+     * 
      * @param size the number of rows or cols 
      */
     public LogicsImpl(final int size) {
@@ -15,21 +17,33 @@ public class LogicsImpl implements Logics{
         this.grid = new boolean[size][size];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int size() {
-        return size;        
+        return size;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isStar(int row, int col) {
+    public boolean isStar(final int row, final int col) {
         return grid[row][col];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void trigger(int row, int col) {
+    public void trigger(final int row, final int col) {
         grid[row][col] = !grid[row][col];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean toQuit() {
         /*Check rows */

@@ -6,7 +6,6 @@ import java.util.Random;
  * Class implementing the logics.
  */
 public class LogicsImpl implements Logics {
-    private static final int INITIAL_CELLS = 3;
     private final int width;
     private boolean[][] grid;
     private final Random numberGenerator = new Random();
@@ -19,7 +18,6 @@ public class LogicsImpl implements Logics {
     public LogicsImpl(final int width) {
         this.width = width;
         this.grid = new boolean[width][width];
-        activateRandomCells(INITIAL_CELLS);
     }
 
     /**
@@ -35,7 +33,7 @@ public class LogicsImpl implements Logics {
      */
     @Override
     public void trigger() {
-        boolean[][] next = new boolean[width][width];
+        final boolean[][] next = new boolean[width][width];
 
         for (int row = 0; row < width; row++) {
             for (int col = 0; col < width; col++) {
@@ -83,10 +81,8 @@ public class LogicsImpl implements Logics {
                 final int nr = row + dx;
                 final int nc = col + dy;
 
-                if (nr >= 0 && nr < width && nc >= 0 && nc < width) {
-                    if (isStar(nr, nc)) {
+                if (nr >= 0 && nr < width && nc >= 0 && nc < width && isStar(nr, nc)) {
                         return true;
-                    }
                 }
             }
         }
@@ -100,10 +96,10 @@ public class LogicsImpl implements Logics {
     public void activateRandomCells(final int n) {
         int count = 0;
 
-        while(count < n) {
+        while (count < n) {
             final int row = numberGenerator.nextInt(width);
             final int col = numberGenerator.nextInt(width);
-            if(!isStar(row, col)) {
+            if (!isStar(row, col)) {
                 grid[row][col] = true;
                 count++;
             }

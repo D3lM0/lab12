@@ -17,6 +17,7 @@ public final class GUI extends JFrame {
 
     @Serial
     private static final long serialVersionUID = 1L;
+    private static final int INITIAL_CELLS = 3;
     private final List<JButton> cells = new ArrayList<>();
 
     /**
@@ -26,6 +27,7 @@ public final class GUI extends JFrame {
      */
     public GUI(final int width) {
         final Logics logics = new LogicsImpl(width);
+        logics.activateRandomCells(INITIAL_CELLS);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         // Create a panel with a grid layout
         final JPanel panel = new JPanel(new GridLayout(width, width));
@@ -61,10 +63,10 @@ public final class GUI extends JFrame {
      * 
      * @param width the size of the grid.
      */
-    private void updateView(Logics logics, int width) {
-        for(int row = 0; row < width; row++) {
+    private void updateView(final Logics logics, final int width) {
+        for (int row = 0; row < width; row++) {
             for (int col = 0; col < width; col++) {
-                JButton b = cells.get(row * width + col);
+                final JButton b = cells.get(row * width + col);
                 b.setText(logics.isStar(row, col) ? "*" : " ");
             }
         }

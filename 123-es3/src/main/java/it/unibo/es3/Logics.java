@@ -5,7 +5,6 @@ package it.unibo.es3;
  */
 public interface Logics {
     /**
-     * 
      * @return the width of the grid.
      */
     int width();

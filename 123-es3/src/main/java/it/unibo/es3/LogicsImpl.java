@@ -2,23 +2,37 @@ package it.unibo.es3;
 
 import java.util.Random;
 
+/**
+ * Class implementing the logics.
+ */
 public class LogicsImpl implements Logics {
     private static final int INITIAL_CELLS = 3;
     private final int width;
     private boolean[][] grid;
     private final Random numberGenerator = new Random();
 
+    /**
+     * Constructor.
+     * 
+     * @param width the size of the grid.
+     */
     public LogicsImpl(final int width) {
         this.width = width;
         this.grid = new boolean[width][width];
         activateRandomCells(INITIAL_CELLS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int width() {
         return this.width;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void trigger() {
         boolean[][] next = new boolean[width][width];
@@ -32,6 +46,9 @@ public class LogicsImpl implements Logics {
         grid = next;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean toQuit() {
         for (int row = 0; row < width; row++) {
@@ -44,11 +61,17 @@ public class LogicsImpl implements Logics {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isStar(final int row, final int col) {
         return grid[row][col];
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasActiveNeighbour(final int row, final int col) {
         for (int dx = -1; dx <= 1; dx++) {
@@ -70,6 +93,9 @@ public class LogicsImpl implements Logics {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void activateRandomCells(final int n) {
         int count = 0;

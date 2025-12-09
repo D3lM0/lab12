@@ -54,6 +54,13 @@ public final class GUI extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Updates the view of the GUI.
+     * 
+     * @param logics the logics used.
+     * 
+     * @param width the size of the grid.
+     */
     private void updateView(Logics logics, int width) {
         for(int row = 0; row < width; row++) {
             for (int col = 0; col < width; col++) {

@@ -17,7 +17,7 @@ public final class GUI extends JFrame {
     @Serial
     private static final long serialVersionUID = 1L;
     private final Map<JButton, Pair<Integer, Integer>> buttons = new LinkedHashMap<>();
-    //private final Logics logics;
+    private final Logics logics;
 
     /**
      * Constructs a GUI with the specified size.
@@ -25,25 +25,26 @@ public final class GUI extends JFrame {
      * @param size the size of the grid
      */
     public GUI(final int size) {
-        //this.logics = new LogicsImpl(size);
+        this.logics = new LogicsImpl(size);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(100 * size, 100 * size);
         // Layout
         final var panel = new JPanel(new GridLayout(size, size));
         this.getContentPane().add(BorderLayout.CENTER, panel);
         // Buttons
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
                 final JButton button = new JButton(" ");
+                this.buttons.put(button, new Pair<Integer,Integer>(row, col));
                 button.addActionListener(e -> {
                     final Pair<Integer, Integer> buttonPosition = buttons.get(button);
-                    button.setText(buttonPosition.toString());
-                    if (buttonPosition.equals(new Pair<>(0, 0))) {
+                    logics.trigger(buttonPosition.x(), buttonPosition.y());
+                    button.setText(logics.isStar(buttonPosition.x(), buttonPosition.y()) ? "*" : " ");
+                    if (logics.toQuit()) {
                         // System.exit(1); // Too brutal!
                         dispose();
                     }
                 });
-                this.buttons.put(button, new Pair<>(i, j));
                 panel.add(button);
             }
         }

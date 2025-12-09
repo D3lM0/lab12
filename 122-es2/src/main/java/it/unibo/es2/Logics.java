@@ -1,7 +1,5 @@
 package it.unibo.es2;
 
-import java.util.List;
-
 public interface Logics {
     /**
      * Number of slots.
@@ -10,11 +8,24 @@ public interface Logics {
     int size();
 
     /**
-     *  
-     * @return ordered booleans stating whether a button has to show the "*"
+     * Tells whether a cell is a "*" or not
+     * @param row the row of the cell
+     * @param col the column of the cell
+     * @return true if a cell is a "*"
      */
-    List<Boolean> pressedButton();
+    boolean isStar(int row, int col);
 
-    
+    /**
+     * Changes the cell
+     * @param row the row of the cell
+     * @param col the column of the cell
+     */
+    void trigger(int row, int col);
+
+    /**
+     * True if it is time to quit (i.e. all slots in a row or in a column show "*")
+     * @return whether it's time to quit
+     */
+    boolean toQuit();
 
 }
